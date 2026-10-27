@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MYSTOSCCTV · Mantención de sistemas de seguridad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#fff;--text:#0f1b2d;--muted:#51627a;--line:#d7e0ec;--hdr:rgba(244,247,251,.85);--ac:#0a7cff;--ac2:#00b8d9;--wa:#1faa59;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070d18;--surface:#0e1830;--text:#e8f0ff;--muted:#9fb0cc;--line:#1f2f52;--hdr:rgba(7,13,24,.85)}}
+:root[data-theme="dark"]{--bg:#070d18;--surface:#0e1830;--text:#e8f0ff;--muted:#9fb0cc;--line:#1f2f52;--hdr:rgba(7,13,24,.85)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth;height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--hdr);backdrop-filter:blur(10px);z-index:10}
+a{color:inherit}
+.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--hdr);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1100px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font:900 1.1rem Orbitron,system-ui,sans-serif;text-decoration:none;letter-spacing:.04em}
+.brand .i{font-size:1.7rem;color:var(--ac)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{text-decoration:none;font-size:.92rem;color:var(--muted)}nav a:hover{color:var(--ac)}
+.wrap{max-width:1100px;margin:auto;padding:70px 18px}
+h2{font:700 clamp(1.5rem,4vw,2.1rem)/1.2 Orbitron,system-ui,sans-serif;margin:0 0 8px}
+.lead{color:var(--muted);max-width:640px;margin:0 0 30px}
+/* HERO (siempre oscuro) */
+.hero{position:relative;overflow:hidden;color:#e8f0ff;background:radial-gradient(circle at 70% 40%,#10306b 0,#070d18 60%)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(10,124,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(10,124,255,.12) 1px,transparent 1px);background-size:44px 44px;animation:grid 8s linear infinite}
+.hero::after{content:"";position:absolute;left:0;right:0;height:120px;background:linear-gradient(transparent,rgba(0,184,217,.18),transparent);animation:scan 5s linear infinite}
+@keyframes grid{to{background-position:0 44px,44px 0}}@keyframes scan{from{top:-120px}to{top:100%}}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;min-height:620px}
+.hero h1{font:900 clamp(2.2rem,7vw,4rem)/1.05 Orbitron,system-ui,sans-serif;margin:0 0 14px;background:linear-gradient(90deg,#fff,#4db2ff,#00e1ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#b8c8e6;font-size:1.1rem;max-width:480px}
+.rec{display:inline-flex;align-items:center;gap:8px;font:600 .8rem system-ui;letter-spacing:.14em;color:#ff6b6b;margin-bottom:14px}
+.rec b{width:10px;height:10px;border-radius:50%;background:#ff3b3b;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.15}}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:1px solid transparent;font:600 .95rem system-ui;text-decoration:none;cursor:pointer;color:#fff;background:linear-gradient(90deg,var(--ac),var(--ac2))}
+.btn.wa{background:var(--wa)}.btn.ghost{background:transparent;border-color:rgba(255,255,255,.35)}
+.btn .i{font-size:1.2rem}
+.orbit-wrap{position:relative;width:min(86vw,400px);aspect-ratio:1;margin:auto}
+.orbit{position:absolute;inset:0;border:1px dashed rgba(77,178,255,.35);border-radius:50%;animation:spin 26s linear infinite}
+.arm{position:absolute;inset:0;transform:rotate(var(--a))}
+.chip{position:absolute;left:50%;top:0;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;display:grid;place-items:center;background:rgba(14,24,48,.9);border:1px solid var(--c);color:var(--c);box-shadow:0 0 18px var(--c);animation:spin 26s linear infinite reverse}
+.chip .i{font-size:1.5rem;transform:rotate(calc(var(--a)*-1))}
+@keyframes spin{to{transform:rotate(360deg)}}
+#logo3d{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(10,124,255,.28),transparent 70%)}
+#logo3d canvas{width:100%!important;height:100%!important;display:block}
+/* SERVICIOS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;transition:.25s}
+.card:hover{transform:translateY(-4px);border-color:var(--c)}
+.card .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.7rem;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);margin-bottom:12px}
+.card h3{margin:0 0 6px}.card p{margin:0 0 10px;color:var(--muted);font-size:.95rem}
+.card ul{margin:0 0 12px;padding-left:18px;font-size:.93rem}
+.tag{display:inline-block;font-size:.8rem;padding:3px 10px;border-radius:99px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);font-weight:600}
+/* VIDEO */
+.vid{background:#070d18;color:#e8f0ff;border-radius:20px;overflow:hidden;border:1px solid var(--line);max-width:900px;margin:auto}
+#vstage{position:relative;aspect-ratio:16/9;display:grid;place-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c,#0a7cff) 28%,#070d18),#070d18 70%);transition:background .6s;overflow:hidden}
+#vstage::after{content:"";position:absolute;left:0;right:0;height:60px;background:linear-gradient(transparent,rgba(255,255,255,.07),transparent);animation:scan 4s linear infinite}
+.sc>*{animation:up .6s both}.sc>*:nth-child(2){animation-delay:.15s}.sc>*:nth-child(3){animation-delay:.3s}.sc>*:nth-child(4){animation-delay:.5s}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+.sc .ico{width:clamp(64px,14vw,104px);aspect-ratio:1;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;font-size:clamp(2rem,7vw,3.4rem);color:var(--c);border:2px solid var(--c);box-shadow:0 0 0 0 var(--c);animation:up .6s both,pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 22px transparent}}
+.sc h3{font:900 clamp(1.3rem,5vw,2.3rem) Orbitron,system-ui,sans-serif;margin:0}
+.sc p{margin:6px 0;color:#b8c8e6;font-size:clamp(.85rem,2.4vw,1.1rem)}
+.sc ul{list-style:none;padding:0;margin:8px 0 0;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.sc li{font-size:clamp(.7rem,2vw,.9rem);padding:4px 12px;border-radius:99px;border:1px solid var(--c);color:#e8f0ff}
+.ctl{display:flex;align-items:center;gap:12px;padding:10px 14px}
+.ctl button{background:none;border:1px solid #2a3b63;color:#e8f0ff;border-radius:50%;width:38px;height:38px;cursor:pointer;display:grid;place-items:center;font-size:1.1rem}
+.prog{flex:1;height:6px;background:#1f2f52;border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#0a7cff,#00e1ff)}
+.ctl small{font-variant-numeric:tabular-nums;color:#9fb0cc}
+/* PASOS */
+.steps{counter-reset:s}.step{position:relative;padding-left:58px}.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:700 1.1rem Orbitron,system-ui,sans-serif;color:#fff;background:linear-gradient(135deg,var(--ac),var(--ac2))}
+.step h3{margin:0 0 4px}.step p{margin:0;color:var(--muted)}
+/* FORM */
+form{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+label{font-size:.88rem;font-weight:600;display:grid;gap:5px}
+input,select,textarea{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac);border-color:transparent}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}
+.checks label{flex-direction:row;display:flex;align-items:center;gap:8px;font-weight:500;padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;background:var(--bg)}
+.checks input{width:auto}.checks .i{color:var(--ac);font-size:1.2rem}
+#st{margin:0;font-size:.9rem;color:#d63b3b;min-height:1.2em}
+/* CONTACTO */
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.ct{display:flex;align-items:center;gap:16px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;text-decoration:none;transition:.25s}
+.ct:hover{transform:translateY(-3px);border-color:var(--ac)}
+.ct .b{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:2rem;color:#fff;background:var(--ac)}
+.ct.w .b{background:var(--wa)}.ct b{display:block;font-size:1.05rem}.ct span{color:var(--muted);font-size:.95rem;word-break:break-all}
+footer{border-top:1px solid var(--line);text-align:center;padding:24px 18px;color:var(--muted);font-size:.9rem}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--wa);color:#fff;font-size:1.9rem;box-shadow:0 6px 20px rgba(0,0,0,.35);text-decoration:none}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr;text-align:center;padding-top:40px}.hero p{margin:auto}.btns{justify-content:center}nav{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="cctv" viewBox="0 0 24 24"><path d="M2 7.5 14 4l1.8 5.2L4 13z"/><path d="M15.8 9.2 21 11v3l-4.5-1.2"/><path d="M7 12.5V17H4"/></symbol>
+<symbol id="intercom" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="8" r="2.5"/><circle cx="12" cy="14" r="1"/><circle cx="12" cy="18" r="1"/></symbol>
+<symbol id="fire" viewBox="0 0 24 24"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.5 1 2.2 1.8 2.5C10.5 8 11 5 12 2z"/></symbol>
+<symbol id="gate" viewBox="0 0 24 24"><path d="M2 21V6M22 21V6M2 10h20M2 15h20M7 10v11M12 10v11M17 10v11"/></symbol>
+<symbol id="alarm" viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M12 8v5M12 16v.01"/></symbol>
+<symbol id="access" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.3"/></symbol>
+<symbol id="wa" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 8.5c0 3 2.5 6 6 6.5l1.2-1.4-2-1-1 .7c-1-.4-2-1.4-2.4-2.4l.7-1-1-2z"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+<symbol id="pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+</svg>
+
+<header><div class="nav">
+<a class="brand" href="#inicio"><svg class="i"><use href="#cctv"/></svg>MYSTOSCCTV</a>
+<nav><a href="#servicios">Servicios</a><a href="#video">Video</a><a href="#cotizar">Cotizar</a><a href="#contacto">Contacto</a></nav>
+</div></header>
+
+<section class="hero" id="inicio"><div class="wrap">
+<div>
+<div class="rec"><b></b>EN VIVO · SISTEMAS PROTEGIDOS</div>
+<h1>MYSTOSCCTV</h1>
+<p>Mantención profesional de CCTV, citofonía, alarmas de incendio e intrusión, motores de portón y control de acceso. Tu seguridad funcionando siempre.</p>
+<div class="btns">
+<a class="btn" href="#cotizar">Cotizar servicio</a>
+<a class="btn wa" href="https://wa.me/5627004308" target="_blank" rel="noopener"><svg class="i"><use href="#wa"/></svg>WhatsApp</a>
+<a class="btn ghost" href="#video"><svg class="i"><use href="#play"/></svg>Ver video</a>
+</div>
+</div>
+<div class="orbit-wrap">
+<div class="orbit" id="orbit"></div>
+<div id="logo3d" aria-label="Logo 3D de cámara de seguridad"></div>
+</div>
+</div></section>
+
+<section class="wrap" id="servicios">
+<h2>Servicios de mantención</h2>
+<p class="lead">Mantención preventiva y correctiva para que tus sistemas respondan cuando más los necesitas.</p>
+<div class="grid" id="cards"></div>
+</section>
+
+<section class="wrap" id="video" style="padding-top:20px">
+<h2>Presentación en video</h2>
+<p class="lead">Conoce en un minuto los sistemas que mantenemos.</p>
+<div class="vid">
+<div id="vstage"></div>
+<div class="ctl"><button id="pp" aria-label="Reproducir o pausar"><svg class="i"><use href="#pause"/></svg></button><div class="prog"><i id="bar"></i></div><small id="tm">0:00</small><button id="rs" aria-label="Reiniciar" title="Reiniciar">↺</button></div>
+</div>
+</section>
+
+<section class="wrap" style="padding-top:20px">
+<h2>Cómo trabajamos</h2><p class="lead"></p>
+<div class="grid steps">
+<div class="step"><h3>Diagnóstico</h3><p>Revisamos el estado de cada equipo, cableado y respaldo.</p></div>
+<div class="step"><h3>Mantención</h3><p>Limpieza, ajustes, pruebas y reemplazo de piezas si es necesario.</p></div>
+<div class="step"><h3>Informe</h3><p>Entregamos el detalle de lo realizado y recomendaciones.</p></div>
+</div>
+</section>
+
+<section class="wrap" id="cotizar" style="padding-top:20px">
+<h2>Cotiza tu servicio</h2>
+<p class="lead">Selecciona los sistemas, completa tus datos y envía la solicitud por WhatsApp o correo.</p>
+<form id="qf" onsubmit="return false">
+<div class="checks" id="checks"></div>
+<div class="row">
+<label>Nombre<input id="fn" placeholder="Tu nombre" autocomplete="name"></label>
+<label>Teléfono<input id="fp" type="tel" placeholder="+56 9 ..." autocomplete="tel"></label>
+</div>
+<div class="row">
+<label>Dirección o comuna<input id="fa" placeholder="Dónde está el sistema"></label>
+<label>Tipo de lugar<select id="ft"><option>Casa</option><option>Departamento / Comunidad</option><option>Empresa / Local</option><option>Industria / Bodega</option></select></label>
+</div>
+<label>Detalle (opcional)<textarea id="fm" rows="3" placeholder="Cantidad de cámaras, equipos, fallas, etc."></textarea></label>
+<p id="st"></p>
+<div class="btns" style="margin:0">
+<button class="btn wa" id="sw"><svg class="i"><use href="#wa"/></svg>Enviar por WhatsApp</button>
+<button class="btn" id="se"><svg class="i"><use href="#mail"/></svg>Enviar por correo</button>
+</div>
+</form>
+</section>
+
+<section class="wrap" id="contacto" style="padding-top:20px">
+<h2>Contacto</h2><p class="lead">Escríbenos y te respondemos a la brevedad.</p>
+<div class="contact">
+<a class="ct w" href="https://wa.me/5627004308" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><div class="b"><svg class="i"><use href="#wa"/></svg></div><div><b>WhatsApp</b><span>+5627004308</span></div></a>
+<a class="ct" href="mailto:mystoscctv@gmail.com" target="_blank" rel="noopener" aria-label="Enviar correo"><div class="b"><svg class="i"><use href="#mail"/></svg></div><div><b>Correo electrónico</b><span>mystoscctv@gmail.com</span></div></a>
+</div>
+</section>
+
+<footer>© 2026 MYSTOSCCTV · Seguridad electrónica</footer>
+<a class="fab" href="https://wa.me/5627004308" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i"><use href="#wa"/></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const WA="5627004308",MAIL="mystoscctv@gmail.com";
+const D=[
+{id:"cctv",n:"CCTV",c:"#0a7cff",d:"Cámaras, grabadores y almacenamiento.",li:["Limpieza de lentes y domos","Revisión de DVR/NVR y discos","Ajuste de enfoque y ángulos","Control de cableado y fuentes"],f:"Cada 3 meses"},
+{id:"intercom",n:"Citofonía",c:"#00b8d9",d:"Comunicación clara en tu acceso.",li:["Prueba de audio y timbres","Revisión de unidades y central","Apertura de cerradura eléctrica","Reparación de cableado"],f:"Cada 3 meses"},
+{id:"fire",n:"Alarma de incendio",c:"#ff5a36",d:"Detección temprana que salva vidas.",li:["Prueba de detectores y pulsadores","Revisión de sirenas y central","Control de baterías de respaldo","Registro de pruebas"],f:"Cada 3 a 6 meses"},
+{id:"gate",n:"Motor de portón",c:"#f5a524",d:"Portones eléctricos seguros y suaves.",li:["Lubricación y revisión mecánica","Fotoceldas y finales de carrera","Ajuste de fuerza y tarjeta","Controles remotos y batería"],f:"Cada 3 meses"},
+{id:"alarm",n:"Alarma de intrusión",c:"#a85cff",d:"Sensores activos y respuesta confiable.",li:["Prueba de sensores y contactos","Revisión de teclado y sirena","Batería de respaldo","Verificación de comunicación"],f:"Cada 3 meses"},
+{id:"access",n:"Control de acceso",c:"#1fc980",d:"Quién entra, cuándo y por dónde.",li:["Lectores, tarjetas y huellas","Cerraduras y electroimanes","Usuarios y software","Fuentes y respaldo"],f:"Cada 6 a 12 meses"}];
+const ic=i=>`<svg class="i"><use href="#${i}"/></svg>`;
+document.getElementById("cards").innerHTML=D.map(s=>`<article class="card" style="--c:${s.c}"><div class="ic">${ic(s.id)}</div><h3>${s.n}</h3><p>${s.d}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join("")}</ul><span class="tag">${s.f}</span></article>`).join("");
+document.getElementById("orbit").innerHTML=D.map((s,k)=>`<div class="arm" style="--a:${k*60}deg"><div class="chip" style="--c:${s.c}" title="${s.n}">${ic(s.id)}</div></div>`).join("");
+document.getElementById("checks").innerHTML=D.map(s=>`<label>${ic(s.id)}<input type="checkbox" value="${s.n}">${s.n}</label>`).join("");
+
+/* Cotizador */
+const g=id=>document.getElementById(id);
+function msg(){const sv=[...document.querySelectorAll("#checks input:checked")].map(x=>x.value);
+if(!sv.length||!g("fn").value.trim()){g("st").textContent="Indica tu nombre y selecciona al menos un servicio.";return null}
+g("st").textContent="";
+return "Hola MYSTOSCCTV, quiero cotizar:\n• Servicios: "+sv.join(", ")+"\n• Nombre: "+g("fn").value.trim()+"\n• Teléfono: "+g("fp").value.trim()+"\n• Dirección/comuna: "+g("fa").value.trim()+"\n• Tipo de lugar: "+g("ft").value+"\n• Detalle: "+(g("fm").value.trim()||"-")}
+g("sw").onclick=()=>{const m=msg();if(m)window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(m),"_blank")};
+g("se").onclick=()=>{const m=msg();if(m)window.open("mailto:"+MAIL+"?subject="+encodeURIComponent("Cotización de servicios MYSTOSCCTV")+"&body="+encodeURIComponent(m),"_blank")};
+
+/* Video presentación animada */
+const SC=[{id:"cctv",c:"#0a7cff",t:"MYSTOSCCTV",p:"Seguridad electrónica y mantención profesional",li:[]},
+...D.map(s=>({id:s.id,c:s.c,t:s.n,p:s.d,li:s.li.slice(0,3)})),
+{id:"cctv",c:"#00e1ff",t:"Cotiza hoy",p:"WhatsApp +5627004308 · mystoscctv@gmail.com",li:["Mantención preventiva","Soporte técnico"]}];
+const DUR=4500,N=SC.length,TOT=N*DUR;let idx=0,el=0,play=true;
+function show(i){idx=i;el=0;const s=SC[i];g("vstage").style.setProperty("--c",s.c);
+g("vstage").innerHTML=`<div class="sc" style="--c:${s.c}"><div class="ico">${ic(s.id)}</div><h3>${s.t}</h3><p>${s.p}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join("")}</ul></div>`}
+const fmt=ms=>{const t=Math.floor(ms/1000);return Math.floor(t/60)+":"+String(t%60).padStart(2,"0")};
+setInterval(()=>{if(!play)return;el+=50;if(el>=DUR)show((idx+1)%N);const c=idx*DUR+el;g("bar").style.width=(c/TOT*100)+"%";g("tm").textContent=fmt(c)+" / "+fmt(TOT)},50);
+g("pp").onclick=()=>{play=!play;g("pp").innerHTML=ic(play?"pause":"play")};
+g("rs").onclick=()=>show(0);
+show(0);
+
+/* Logo 3D: cámara de seguridad */
+(function(){const el=g("logo3d");
+if(!window.THREE){el.innerHTML='<div style="display:grid;place-items:center;height:100%;font-size:4rem;color:#4db2ff">'+ic("cctv")+'</div>';return}
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,100);cam.position.set(0,.3,8.5);
+const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(r.domElement);
+const size=()=>{r.setSize(el.clientWidth,el.clientHeight);cam.aspect=el.clientWidth/el.clientHeight;cam.updateProjectionMatrix()};size();addEventListener("resize",size);
+sc.add(new THREE.AmbientLight(0xffffff,.55));
+const dl=new THREE.DirectionalLight(0xffffff,1.1);dl.position.set(4,5,6);sc.add(dl);
+const pl=new THREE.PointLight(0x2aa0ff,1.4,20);pl.position.set(-4,-1,4);sc.add(pl);
+const M=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,metalness:.6,roughness:.32},o||{}));
+const grp=new THREE.Group(),add=(geo,mat,x,y,z,rx,ry,rz)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.rotation.set(rx||0,ry||0,rz||0);grp.add(m);return m};
+const white=M(0xe9eef7,{metalness:.3,roughness:.4}),dark=M(0x10172a,{metalness:.8,roughness:.25});
+add(new THREE.CylinderGeometry(.62,.62,2.3,40),white,0,0,0,0,0,Math.PI/2);
+add(new THREE.CylinderGeometry(.66,.66,.3,40),dark,1.05,0,0,0,0,Math.PI/2);
+add(new THREE.TorusGeometry(.5,.06,16,40),M(0x2a7fff,{emissive:0x0a3d99}),1.22,0,0,0,Math.PI/2,0);
+add(new THREE.CylinderGeometry(.42,.42,.14,40),M(0x04101f,{emissive:0x0a5fd0,emissiveIntensity:.8,metalness:.9,roughness:.1}),1.26,0,0,0,0,Math.PI/2);
+add(new THREE.BoxGeometry(2.7,.1,1.5),white,.2,.72,0);
+add(new THREE.BoxGeometry(.1,.22,1.5),white,1.52,.65,0);
+const led=add(new THREE.SphereGeometry(.07,16,16),M(0xff2020,{emissive:0xff1010,emissiveIntensity:1}),.75,.3,.56);
+add(new THREE.CylinderGeometry(.1,.1,.5,16),dark,-.8,-.8,0);
+add(new THREE.SphereGeometry(.22,24,24),dark,-.8,-1.1,0);
+add(new THREE.CylinderGeometry(.12,.12,1.1,16),dark,-.8,-1.1,-.6,Math.PI/2);
+add(new THREE.BoxGeometry(.9,1.2,.12),white,-.8,-1.1,-1.2);
+grp.position.set(-.2,.15,0);sc.add(grp);
+let mx=0,my=0;addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+(function loop(t){requestAnimationFrame(loop);t/=1000;
+grp.rotation.y=-.55+Math.sin(t*.7)*.45+mx*.5;grp.rotation.x=my*.25;grp.position.y=.15+Math.sin(t*1.5)*.08;
+led.material.emissiveIntensity=Math.sin(t*5)>0?1.2:.1;r.render(sc,cam)})(0);
+})();
+</script>
+</body>
+</html>
