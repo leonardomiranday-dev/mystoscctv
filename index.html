@@ -20,7 +20,7 @@ a{color:inherit}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--hdr);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{max-width:1100px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font:900 1.1rem Orbitron,system-ui,sans-serif;text-decoration:none;letter-spacing:.04em}
-.brand .i{font-size:1.7rem;color:var(--ac)}
+.brand .logo{width:38px;height:38px;flex:none;filter:drop-shadow(0 2px 8px rgba(10,124,255,.45))}
 nav{display:flex;gap:18px;flex-wrap:wrap}
 nav a{text-decoration:none;font-size:.92rem;color:var(--muted)}nav a:hover{color:var(--ac)}
 .wrap{max-width:1100px;margin:auto;padding:70px 18px}
@@ -100,6 +100,8 @@ footer{border-top:1px solid var(--line);text-align:center;padding:24px 18px;colo
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a7cff"/><stop offset="1" stop-color="#00e1ff"/></linearGradient></defs>
+<symbol id="logo" viewBox="0 0 64 64"><path d="M32 3 56 12v18c0 15-10 26-24 31C18 56 8 45 8 30V12z" fill="url(#lg)"/><path d="M32 8 51 15v15c0 12-8 21-19 26C21 51 13 42 13 30V15z" fill="#071a3a" opacity=".35"/><g transform="rotate(-12 32 30)"><rect x="12" y="19" width="30" height="3" rx="1.5" fill="#fff" opacity=".85"/><rect x="15" y="22" width="26" height="14" rx="4" fill="#fff"/><rect x="39" y="25" width="8" height="8" rx="2" fill="#0b1b3a"/><circle cx="43" cy="29" r="2.5" fill="#00e1ff"/><circle cx="20" cy="29" r="1.8" fill="#ff3b3b"/></g><path d="M21 38v7h-6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 <symbol id="cctv" viewBox="0 0 24 24"><path d="M2 7.5 14 4l1.8 5.2L4 13z"/><path d="M15.8 9.2 21 11v3l-4.5-1.2"/><path d="M7 12.5V17H4"/></symbol>
 <symbol id="intercom" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="8" r="2.5"/><circle cx="12" cy="14" r="1"/><circle cx="12" cy="18" r="1"/></symbol>
 <symbol id="fire" viewBox="0 0 24 24"><path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.5 1 2.2 1.8 2.5C10.5 8 11 5 12 2z"/></symbol>
@@ -113,7 +115,7 @@ footer{border-top:1px solid var(--line);text-align:center;padding:24px 18px;colo
 </svg>
 
 <header><div class="nav">
-<a class="brand" href="#inicio"><svg class="i"><use href="#cctv"/></svg>MYSTOSCCTV</a>
+<a class="brand" href="#inicio"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>MYSTOSCCTV</a>
 <nav><a href="#servicios">Servicios</a><a href="#video">Video</a><a href="#cotizar">Cotizar</a><a href="#contacto">Contacto</a></nav>
 </div></header>
 
@@ -124,7 +126,7 @@ footer{border-top:1px solid var(--line);text-align:center;padding:24px 18px;colo
 <p>Mantención profesional de CCTV, citofonía, alarmas de incendio e intrusión, motores de portón y control de acceso. Tu seguridad funcionando siempre.</p>
 <div class="btns">
 <a class="btn" href="#cotizar">Cotizar servicio</a>
-<a class="btn wa" href="https://wa.me/5627004308" target="_blank" rel="noopener"><svg class="i"><use href="#wa"/></svg>WhatsApp</a>
+<a class="btn wa" href="https://wa.me/56927004308" target="_blank" rel="noopener"><svg class="i"><use href="#wa"/></svg>WhatsApp</a>
 <a class="btn ghost" href="#video"><svg class="i"><use href="#play"/></svg>Ver video</a>
 </div>
 </div>
@@ -183,17 +185,17 @@ footer{border-top:1px solid var(--line);text-align:center;padding:24px 18px;colo
 <section class="wrap" id="contacto" style="padding-top:20px">
 <h2>Contacto</h2><p class="lead">Escríbenos y te respondemos a la brevedad.</p>
 <div class="contact">
-<a class="ct w" href="https://wa.me/5627004308" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><div class="b"><svg class="i"><use href="#wa"/></svg></div><div><b>WhatsApp</b><span>+5627004308</span></div></a>
+<a class="ct w" href="https://wa.me/56927004308" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><div class="b"><svg class="i"><use href="#wa"/></svg></div><div><b>WhatsApp</b><span>+56927004308</span></div></a>
 <a class="ct" href="mailto:mystoscctv@gmail.com" target="_blank" rel="noopener" aria-label="Enviar correo"><div class="b"><svg class="i"><use href="#mail"/></svg></div><div><b>Correo electrónico</b><span>mystoscctv@gmail.com</span></div></a>
 </div>
 </section>
 
 <footer>© 2026 MYSTOSCCTV · Seguridad electrónica</footer>
-<a class="fab" href="https://wa.me/5627004308" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i"><use href="#wa"/></svg></a>
+<a class="fab" href="https://wa.me/56927004308" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i"><use href="#wa"/></svg></a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-const WA="5627004308",MAIL="mystoscctv@gmail.com";
+const WA="56927004308",MAIL="mystoscctv@gmail.com";
 const D=[
 {id:"cctv",n:"CCTV",c:"#0a7cff",d:"Cámaras, grabadores y almacenamiento.",li:["Limpieza de lentes y domos","Revisión de DVR/NVR y discos","Ajuste de enfoque y ángulos","Control de cableado y fuentes"],f:"Cada 3 meses"},
 {id:"intercom",n:"Citofonía",c:"#00b8d9",d:"Comunicación clara en tu acceso.",li:["Prueba de audio y timbres","Revisión de unidades y central","Apertura de cerradura eléctrica","Reparación de cableado"],f:"Cada 3 meses"},
@@ -218,7 +220,7 @@ g("se").onclick=()=>{const m=msg();if(m)window.open("mailto:"+MAIL+"?subject="+e
 /* Video presentación animada */
 const SC=[{id:"cctv",c:"#0a7cff",t:"MYSTOSCCTV",p:"Seguridad electrónica y mantención profesional",li:[]},
 ...D.map(s=>({id:s.id,c:s.c,t:s.n,p:s.d,li:s.li.slice(0,3)})),
-{id:"cctv",c:"#00e1ff",t:"Cotiza hoy",p:"WhatsApp +5627004308 · mystoscctv@gmail.com",li:["Mantención preventiva","Soporte técnico"]}];
+{id:"cctv",c:"#00e1ff",t:"Cotiza hoy",p:"WhatsApp +56927004308 · mystoscctv@gmail.com",li:["Mantención preventiva","Soporte técnico"]}];
 const DUR=4500,N=SC.length,TOT=N*DUR;let idx=0,el=0,play=true;
 function show(i){idx=i;el=0;const s=SC[i];g("vstage").style.setProperty("--c",s.c);
 g("vstage").innerHTML=`<div class="sc" style="--c:${s.c}"><div class="ico">${ic(s.id)}</div><h3>${s.t}</h3><p>${s.p}</p><ul>${s.li.map(l=>`<li>${l}</li>`).join("")}</ul></div>`}
